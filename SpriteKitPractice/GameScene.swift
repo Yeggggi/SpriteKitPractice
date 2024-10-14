@@ -24,10 +24,8 @@ class GameScene: SKScene {
         background.zPosition = 1
         addChild(background)
         
-//        ground.size = self.size
         ground.position = CGPoint(x: size.width / 2, y: 10)
         ground.zPosition = 5
-//        ground.setScale(2.5)
         addChild(ground)
         
         print("Ground size: \(ground.size)")

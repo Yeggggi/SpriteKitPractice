@@ -29,6 +29,12 @@ class GameScene: SKScene {
         addChild(ground)
         
         print("Ground size: \(ground.size)")
+        
+        player.size = CGSize(width: 200, height: 200)
+        player.position = CGPoint(x: size.width / 2, y: size.height / 13)
+        player.zPosition = 10
+        player.setScale(0.5)
+        addChild(player)
     }
 
    

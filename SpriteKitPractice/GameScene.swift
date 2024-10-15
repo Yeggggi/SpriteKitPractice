@@ -8,16 +8,18 @@
 import SpriteKit
 import GameplayKit
 
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     let background = SKSpriteNode(imageNamed: "skyGradient")
-    let player = SKSpriteNode(imageNamed: "molang_player")
+    let player = SKSpriteNode(imageNamed: "hamd")
     let ground = SKSpriteNode(imageNamed: "ground")
 //    let platform = SKSpriteNode(imageNamed: "skyGradient")
     
-    enum bitmasks: UInt32 {
-        case player = 0b1
-//        case platform = 0b10
-    }
+//    enum bitmasks: UInt32 {
+//        case player = 0b1
+////        case platform = 0b10
+//    }
+    
     override func didMove(to view: SKView) {
         self.size = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         
@@ -30,7 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         physicsWorld.contactDelegate = self
         
-        ground.position = CGPoint(x: size.width / 2, y: 10)
+        ground.position = CGPoint(x: size.width / 2, y: 40)
         ground.zPosition = 5
         ground.physicsBody = SKPhysicsBody(rectangleOf: ground.size)
         ground.physicsBody?.isDynamic = false
@@ -40,13 +42,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         print("Ground size: \(ground.size)")
         
+        player.anchorPoint = .init(x: 0.5, y: 1)
         player.size = CGSize(width: 200, height: 200)
-        player.position = CGPoint(x: size.width / 2, y: size.height / 13)
+        player.position = CGPoint(x: size.width / 2, y: 300)
+        print("player position y: \(player.position.y)")
         player.zPosition = 10
         player.setScale(0.5)
-        player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.height / 2)
+        player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.height/2)
         player.physicsBody?.isDynamic = true // later will change true
-        player.physicsBody?.restitution = 0
+        player.physicsBody?.restitution = 0.5
         player.physicsBody?.friction = 0
         player.physicsBody?.angularDamping = 0
         addChild(player)
@@ -96,7 +100,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         func jump() {
 //            player?.texture = SKTexture(imageNamed: "player_jumping")
-            player.texture = SKTexture(imageNamed: "upp")
+            player.texture = SKTexture(imageNamed: "hamu")
             player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 200))
         }
 
@@ -105,7 +109,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
 
         func touchUp(atPoint pos: CGPoint) {
-            player.texture = SKTexture(imageNamed: "molang_player")
+            player.texture = SKTexture(imageNamed: "hamd")
         }
 
 }

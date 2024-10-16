@@ -15,12 +15,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let ground = SKSpriteNode(imageNamed: "ground")
     private var seeds: [SKSpriteNode] = []
     var coinValue = 0
-    //    let platform = SKSpriteNode(imageNamed: "skyGradient")
-    
-    //    enum bitmasks: UInt32 {
-    //        case player = 0b1
-    ////        case platform = 0b10
-    //    }
+
     
     override func didMove(to view: SKView) {
         self.size = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -88,14 +83,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    
     func touchUp(atPoint pos: CGPoint) {
         player.run(SKAction.move(to: pos, duration: 0.3))
         jump()
     }
     
     func jump() {
-        //            player?.texture = SKTexture(imageNamed: "player_jumping")
         player.texture = SKTexture(imageNamed: "hamu")
         player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 200))
     }
@@ -110,7 +103,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // 블루베리 떨굼
     func startDroppingSeeds() {
-        print("droping")
         let dropAction = SKAction.run { [weak self] in
             self?.createSeed()
         }
@@ -122,8 +114,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // 블루베리 생성 함수
     func createSeed() {
-        print("create")
-        let seed = SKSpriteNode(imageNamed: "bob")
+        let seed = SKSpriteNode(imageNamed: "seed")
         
         
         seed.size = CGSize(width: 100, height: 100)
@@ -143,9 +134,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         seeds.append(seed)
         
         let moveAction = SKAction.moveTo(y: 0, duration: 5.0)
-        seed.run(moveAction) { [weak self] in
-            self?.handleSeedFell(seed)
-        }
+        seed.run(moveAction)
     }
     
     // 충돌 감지 처리
@@ -161,8 +150,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 coinValue = coinValue + 1
                 handleSeedCollision(seed)
             }
-            
-            
         }
 
         func handleSeedCollision(_ seed: SKSpriteNode) {
@@ -171,12 +158,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             print("Seed collected! \(coinValue)")
         }
     
-    
-    func handleSeedFell(_ seed: SKSpriteNode) {
-        print("drop")
-        seed.removeFromParent()
-        seeds.removeAll { $0 == seed }
-    }
     
     
 }

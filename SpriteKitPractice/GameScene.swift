@@ -137,6 +137,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         seed.run(moveAction)
     }
     
+    
+    
     // 충돌 감지 처리
         func didBegin(_ contact: SKPhysicsContact) {
             // 물리 충돌이 발생하면 contact이라는 객체가 제공된다. contact.bodyA와 contact.bodyB는 충돌에 참여한 두 물리 바디를 나타냄. 충돌에 참여한 두 물리 바디 각각을 넣어주는 용도로 사용
@@ -149,7 +151,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 return
             }
             
-            //bodyA가 player라면 bodyB를, 그렇지 않으면 bodyA를 seed 변수에 할당합니다. 이 조건문은 충돌이 player와 다른 물체(여기서는 씨앗) 사이에서 발생했음
+            //bodyA가 player라면 bodyB를, 그렇지 않으면 bodyA를 seed 변수에 할당합니다. 이 조건문은 충돌이 player와 다른 물체(여기서는 씨앗) 사이에서 발생했음.
             if let seed = (bodyA == player ? bodyB : bodyA) {
                 coinValue = coinValue + 1
                 handleSeedCollision(seed)

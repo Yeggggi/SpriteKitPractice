@@ -139,13 +139,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // 충돌 감지 처리
         func didBegin(_ contact: SKPhysicsContact) {
+            // 물리 충돌이 발생하면 contact이라는 객체가 제공된다. contact.bodyA와 contact.bodyB는 충돌에 참여한 두 물리 바디를 나타냄. 충돌에 참여한 두 물리 바디 각각을 넣어주는 용도로 사용
             let bodyA = contact.bodyA.node as? SKSpriteNode
             let bodyB = contact.bodyB.node as? SKSpriteNode
             
+            // 서로 충돌한 두 노드 중 하나가 ground라면 충돌에 대한 처리를 무시하고 함수에서 빠져나간다. 이 코드는 ground와의 충돌은 특별히 처리할 필요가 없도록 되어있음
+            // seed는 ground를 통과하고, player는 통과하지 않는 이유가 ground 에 contact하는 모든 피지컬바디의 물리적 contact을 무시하는데 player는 기존에 ground와의 관계가 있어서 통과하지 않고, seed는 ground와 어떤 관계도 없었기때문에 서로 전혀 물리적 영향을 주지않고 통과한다.
             if bodyA == ground || bodyB == ground {
                 return
             }
             
+            //bodyA가 player라면 bodyB를, 그렇지 않으면 bodyA를 seed 변수에 할당합니다. 이 조건문은 충돌이 player와 다른 물체(여기서는 씨앗) 사이에서 발생했음
             if let seed = (bodyA == player ? bodyB : bodyA) {
                 coinValue = coinValue + 1
                 handleSeedCollision(seed)
